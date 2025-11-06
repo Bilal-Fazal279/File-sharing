@@ -1,0 +1,75 @@
+
+--------------------------------------------------------------------------------------------------------------
+ // 1️⃣ Personal number check
+  const personal = document.getElementById("M0:46:1:1:2:3B256:5:2::0:11");
+  if (!personal || personal.value.trim() === "" || personal.value.trim() === "0")
+    results.push("❌ Personal number missing");
+  else
+    results.push("✅ Personal number present");
+
+--------------------------------------------------------------------------------------------------------------
+// 3️⃣ First operation personal number
+  const firstOp = document.getElementById("M0:46:1:1:2:3B256:10::4:12");
+  if (!firstOp || firstOp.value.trim() === "" || firstOp.value.trim() === "0")
+    results.push("❌ First operation personal number missing");
+  else
+    results.push("✅ First operation personal number present");
+--------------------------------------------------------------------------------------------------------------
+
+// 2️⃣ Check span IDs that contain "tbl" and ",10]_c" and actual hrs present
+
+const results = [];
+
+const operations = document.getElementById("M0:46:1:1:2::0:1-title");
+if (operations) {
+  operations.click();
+  console.log("Clicked Operations tab");
+
+  // Wait for elements to appear
+  waitForElements('span[id*="tbl"][id*=",10]_c"][class*="lsField__input"]', checkSpans);
+} else {
+  console.log("❌ Operations tab not found!");
+}
+
+// --- Helper function: wait until selector is found ---
+function waitForElements(selector, callback, timeout = 5000) {
+  const start = Date.now();
+  const timer = setInterval(() => {
+    const elems = document.querySelectorAll(selector);
+    if (elems.length > 0) {
+      clearInterval(timer);
+      callback(elems);
+    } else if (Date.now() - start > timeout) {
+      clearInterval(timer);
+      console.log("⚠️ Timeout waiting for elements to load.");
+      callback([]);
+    }
+  }, 500);
+}
+
+// --- Your checking logic ---
+function checkSpans(spans) {
+  console.log("Spans found:", spans.length);
+
+  let hasMissing = false;
+
+  spans.forEach(s => {
+    let val = s.innerText.trim();
+    console.log(s.id, "=", val);
+
+    if (val == 0 || val === "") {
+      hasMissing = true;
+    }
+  });
+
+  if (spans.length === 0 || hasMissing) {
+    results.push("❌ Actual work hrs missing");
+    console.log("Inside IF body");
+  } else {
+    results.push("✅ Actual work hrs present");
+  }
+
+  console.log("Results:", results);
+}
+
+--------------------------------------------------------------------------------------------------------------

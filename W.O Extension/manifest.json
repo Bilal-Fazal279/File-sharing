@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Work Order Checker",
+  "version": "1.0",
+  "description": "Checks SAP work orders for missing fields",
+
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Check Work Order",
+    "default_icon": {
+      "16": "checker_Icon.png",
+      "48": "checker_Icon.png",
+      "128": "checker_Icon.png"
+    }
+  },
+
+  "background": {
+    "service_worker": "background.js"
+  }
+}
