@@ -1,0 +1,456 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-16" />
+    
+    <meta name="keywords" content="iescobill, mepcobill, pescobill, hescobill, sepcobill, qescobill, gepcobill, fescobill, tescobill" />
+    <meta name="description" content="Consumer electricity bills" />
+
+    <title>SEPCO ONLINE BILL</title>
+
+    <noscript>
+        <h3>You must have JavaScript enabled in order to use this order form. Please enable JavaScript and then reload this page in order to continue. 
+        </h3>
+        <meta http-equiv="refresh" content="0;" url="/maintenance.aspx" />
+    </noscript>
+
+    <link href="/styles/gbPrint.css" rel="stylesheet" type="text/css" />
+    <link href="/styles/normalize.css" rel="stylesheet" type="text/css" />
+    <link href="/styles/genbill.css" rel="stylesheet" type="text/css" />
+    <link href="/styles/img-zoom/multizoom.css" rel="stylesheet" type="text/css" />
+
+    
+    <style>
+        .tabs {
+            display: flex;
+            cursor: pointer;
+            justify-content: center;
+            border-bottom: 2px solid #e0e0e0;
+            margin: 20px auto;
+            max-width: 1200px; /* Adjust width to fit content */
+        }
+
+        .tab {
+            padding: 12px 20px;
+            margin: 0 5px;
+            border-radius: 5px 5px 0 0;
+            transition: background-color 0.3s, color 0.3s;
+            color: #333;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-bottom: none; /* Remove bottom border to integrate with content */
+        }
+
+            .tab:hover {
+                background-color: #f0f0f0;
+            }
+
+            .tab.active {
+                background-color: #ffffff;
+                border-bottom: 2px solid #007bff;
+                font-weight: 600;
+                color: #007bff;
+            }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            max-width: 1200px; /* Keep content aligned with tabs */
+            margin: 0 auto; /* Center the content below the tabs */
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        #normal_bill_qrcode[title],
+        #det_bill_qrcode[title] 
+        {
+            pointer-events: none;
+        }
+
+    </style>
+
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .certificate-container {
+            background: #fff;
+            padding: 14px;
+            border: 2px solid #666; /* Updated: Darker border color */
+            max-width: 800px;
+            margin: auto;
+            font-size: 11px !important;
+        }
+
+            .certificate-container p {
+                margin: 6px;
+                font-size: 10px !important;
+            }
+
+            .certificate-container table td {
+                font-size: 10px !important;
+            }
+
+            .certificate-container table td,
+            .certificate-container table th {
+                padding: 4px !important;
+            }
+
+        h1, h2 {
+            text-align: center;
+            margin: 0;
+        }
+
+        .info-table, .bills-table, .issued-by-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+            .info-table td:first-child {
+                width: 180pt;
+            }
+
+            .info-table td {
+                padding: 8px;
+                border: 2px solid #666;
+            }
+
+            .bills-table th, .bills-table td {
+                padding: 10px;
+                border: 2px solid #666; /* Updated: Darker border color */
+                text-align: center;
+            }
+
+            .bills-table th {
+                background-color: #f0f0f0;
+            }
+
+            .bills-table td:nth-child(2),
+            .bills-table td:nth-child(3) {
+                text-align: right;
+            }
+
+        .footer-text {
+            margin-top: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .issued-by-table td {
+            padding: 8px;
+            border: 2px solid #666; /* Updated: Darker border color */
+        }
+
+        .note {
+            margin-top: 10px;
+            font-size: 12px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .text-align-left {
+            text-align: left;
+        }
+
+        .bill-payment-logo {
+            position: absolute;
+            top: 30px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 50%; /* Adjust zoom level */
+            opacity: 1;
+            pointer-events: none;
+        }
+    </style>
+
+    
+    <style>
+        body {
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffffff;
+        }
+
+        #loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        #loading-bar {
+            width: 300px;
+            height: 20px;
+            background-color: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        #progress {
+            width: 0;
+            height: 100%;
+            background-color: #4caf50;
+            transition: width linear;
+        }
+
+        #loading-text {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        /*#main-content {
+            display: none;
+            text-align: center;
+        }
+
+        #main-content.show {
+            display: block;
+        }*/
+    </style>
+
+    
+    <style>
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            html, body {
+                height: auto;
+                overflow: visible;
+            }
+
+            #maincontent {
+                page-break-after: avoid;
+            }
+        }
+    </style>
+
+    <script src="/js/JsBarcode.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+</head>
+<body>
+    <span id="lblSnapError" style="color:Red;"></span>
+    <div id="loader-container">
+        <div id="loading-bar">
+            <div id="progress"></div>
+        </div>
+        <div id="loading-text">Your bill is loading ...</div>
+    </div>
+
+    <div class="tabs noprint">
+        <div class="tab active" onclick="showTab(0)">Bill</div>
+
+        <div class="tab" onclick="showTab(1)">Tax Certificate</div>
+
+        
+    </div>
+
+    
+    <div class="tab-content active">
+
+        
+
+        <div class="noprint" style="margin: 10pt">
+            <button type="button"
+                class="auto-center btn btn-secondary"
+                style="font-size: 14px; padding: 5px; margin: auto; width: 75px;"
+                onclick="window.print()">
+                Print
+            </button>
+        </div>
+
+        
+
+        <div class="maincontent fontsize">
+            
+
+            <div class="header" style="margin-bottom: 20px">
+                <div class="headerimg">
+                    <img style="margin-left: 10px; margin-top: 5px; max-width: 100%; max-height: 85%"
+                        src="/images/companies/sepco/sepcoLogo.png" alt="SEPCO" />
+                </div>
+                <div class="heading">
+                    <h1 style="margin: 10px 10px 10px 35px">
+                        SUKKUR ELECTRIC POWER COMPANY
+                        <span style="color: #1a75ff; float: right;">
+                            SEPCO GST No.<br/>29-00-3801-689-10<br/>
+                        </span>
+                    </h1>
+                    <div>
+                        <b style="color: #1a75ff;">YOUR BETTER SERVICE - OUR PRIDE</b>
+                        <b style="float: right; margin-right: 10px;">
+                            <a style="text-decoration: none; color: #1a75ff;" href="http://www.sepco.com.pk">www.sepco.com.pk</a>
+                        </b>
+                        <b style="color: #1a75ff; float: right; margin-right: 60px">ELECTRICITY CONSUMER BILL</b>
+                    </div>
+                </div>
+            </div>
+            <table class="maintable" cellpadding="0" cellspacing="0">
+
+                <tr class="font-size" style="height: 15px; width: 100%;">
+                    <td class="border-rb" style="width: 206px">
+                        <h4>CONNECTION DATE</h4>
+                    </td>
+                    <td class="border-rb">
+                        <h4> CONNECTED LOAD </h4>
+                        <h4> CURR MDI :  </h4> 
+                    </td>
+                    <td class="border-rb" style="width: 53px">
+                        
+                        <h4>ED@</h4>
+                        
+                    </td>
+                    <td class="border-rb" style="width: 129px">
+                        <h4>BILL MONTH</h4>
+                    </td>
+                    <td class="border-rb" style="width: 157px">
+                        <h4>READING DATE 
+                            </h4>
+                    </td>
+                    <td class="border-rb" style="width: 104px">
+                        <h4>ISSUE DATE</h4>
+                    </td>
+                    <td class="border-b" style="color: Red;">
+                        <h4>DUE DATE</h4>
+                    </td>
+                </tr>
+                <tr style="height: 26px; width: 100%; font-size: .8em;" class="content">
+                    <td class="border-rb" style="text-align: center;">
+                        
+                    </td>
+                    <td class="border-rb" style="text-align: center;">
+                        5
+                    </td>
+                    <td class="border-rb" style="text-align: center;">
+                        2%
+                        
+                    </td>
+                    <td class="border-rb" style="text-align: center;">
+                        APR 26
+                    </td>
+                    <td class="border-rb" style="text-align: center;">
+                        09 APR 26
+                    </td>
+                    <td class="border-rb" style="text-align: center;">
+                        13 APR 26
+                    </td>
+                    <td class="border-b" style="text-align: center;">
+                        24 APR 26
+                    </td>
+                </tr>
+            </table>
+            <div style="height: auto; width: 453pt; float: left">
+                <table class="nestable1" style="width: 100%">
+                    <tr style="height: 27px;" class="fontsize">
+                        <td class="border-rb">
+                            <h4>CONSUMER ID</h4>
+                        </td>
+                        <td class="border-rb">
+                            <h4>TARIFF</h4>
+                        </td>
+                        <td class="border-rb">
+                            <h4>LOAD</h4>
+                        </td>
+                        <td class="border-rb">
+                            <h4>OLD A/C NUMBER</h4>
+                        </td>
+                    </tr>
+                    <tr style="height: 27px;" class="fontsize content">
+                        <td class="border-rb" style="text-align: center;">
+                            1380064927
+                        </td>
+                        <td class="border-rb" style="text-align: center;">
+                            A-2a(04)
+                        </td>
+                        <td class="border-rb" style="text-align: center;">
+                            5
+                        </td>
+                        <td class="border-rb" style="text-align: center;">
+                            06382530086010
+                        </td>
+                    </tr>
+                    <tr style="height: 27px; padding-top: 0;" class="fontsize">
+                        <td class="border-rb">
+                            <h4>REFERENCE NO</h4>
+                        </td>
+                        <td class="border-rb">
+                            <h4>LOCK AGE</h4>
+                        </td>
+                        <td class="border-rb">
+                            <h4>
+                                
+                                No of ACs
+                            
+                            </h4>
+                        </td>
+                        <td class="border-rb">
+                            <h4>UN-BILL-AGE</h4>
+                        </td>
+                    </tr>
+                    <tr style="height: 27px;" class="fontsize content">
+                        <td class="border-r" style="text-align: center;">
+                            06 38533 0086010 U
+                            
+                        </td>
+                        <td class="border-r ">
+                            
+                        </td>
+                        <td class=" border-r" style="text-align: center;">
+                            
+                            
+                        </td>
+                        <td class=" border-r" style="text-align: center;">
+                            
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div style="height: auto; width: 400px; float: right;">
+                <table style="width: 100%" cellpadding="0" cellspacing="0">
+                    <tr style="height: 27px;" class="fontsize">
+                        <td class="border-rb">
+                            <h4>DIVISION</h4>
+                        </td>
+                        <td style="text-align: center;" class="content border-b">
+                            KANDHKOT
+                        </td>
+                    </tr>
+                    <tr style="height: 27px; width: 100%;" class="fontsize">
+                        <td class="border-rb" style="width: 40%;">
+                            <h4>SUB DIVISION</h4>
+                        </td>
+                        <td colspan="3" style="text-align: center;" class="content border-b">
+                            KASHMORE
+                        </td>
+                    </tr>
+                    <tr style="height: 27px; width: 100%;" class="fontsize">
+                        <td class="border-rb" style="width: 40%;">
+                            <h4>FEEDER NAME</h4>
+                        </td>
+                        <td colspan="3" style="text-align: center;" class="content border-b">
+                            045702 11KV  GTPS COLONY                  
