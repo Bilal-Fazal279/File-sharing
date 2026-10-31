@@ -1,4 +1,243 @@
+:root {
+  --bg-dark: #081217;
+  --glass-bg: rgba(13, 27, 34, 0.7);
+  --card-border: rgba(0, 243, 255, 0.15);
+  --cyan: #00f3ff;
+  --green: #39ff14;
+  --yellow: #f1c40f;
+  --text-dim: #5c7a89;
+  --text-main: #ffffff;
+}
+
 body {
+  width: 350px;
+  /* background-color: var(--bg-dark); */
+  /* background-color: #1e2d49; */
+  background-color: #0e292f;
+  color: var(--text-main);
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  margin: 0;
+  padding: 15px;
+  overflow: hidden;
+}
+
+.hud-container {
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 16px;
+  background: radial-gradient(
+    circle at 50% -20%,
+    rgba(0, 243, 255, 0.1),
+    transparent
+  );
+}
+
+/* Header Section */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+}
+
+.pulse-dot {
+  height: 10px;
+  width: 10px;
+  background-color: var(--cyan);
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
+  box-shadow: 0 0 8px var(--cyan);
+}
+
+.active-tag {
+  color: var(--cyan);
+  border: 1px solid var(--cyan);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 15px 0;
+  letter-spacing: 0.5px;
+  display: inline;
+}
+
+/* Summary Card */
+.summary-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight:700;
+  margin-bottom: 6px;
+}
+
+.progress-track {
+  height: 5px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  /* margin-bottom: 15px; */
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 10px;
+}
+.progress-fill {
+  /* This makes the color change smooth as the bar grows */
+  transition:
+    width 1.2s cubic-bezier(0.1, 0.7, 0.1, 1),
+    background 0.6s ease-in-out,
+    box-shadow 0.6s ease-in-out;
+}
+
+.cyan-glow {
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+}
+.green-glow {
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green);
+}
+
+/* Verification Stack */
+.section-divider {
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.item-card {
+  display: flex;
+  align-items: center;
+  background: var(--glass-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.icon-box {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  margin-right: 12px;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+}
+.item-label {
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+.item-value {
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.status-icon {
+  margin-left: auto;
+  font-size: 16px;
+}
+
+/* Main Button */
+.main-button {
+  width: 100%;
+  background: var(--cyan);
+  color: #000;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 13px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  margin-top: 10px;
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+  transition: all 0.2s ease;
+}
+
+.main-button:hover {
+  box-shadow: 0 0 30px rgba(0, 243, 255, 0.6);
+  transform: translateY(-1px);
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 15px;
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+/* Utility Colors */
+.cyan-text {
+  color: var(--cyan);
+}
+.green-text {
+  color: var(--green);
+}
+.yellow-text {
+  color: var(--yellow);
+}
+.cyan-border {
+  border: 1px solid var(--cyan);
+}
+.yellow-border {
+  border: 1px solid var(--yellow);
+}
+
+.tint-cyan {
+  filter: invert(72%) sepia(93%) saturate(1966%) hue-rotate(143deg)
+    brightness(105%) contrast(106%);
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 10px;
+  width: 0%; /* Initial state */
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth sliding animation */
+}
+
+.cyan-glow {
+  background: var(--cyan);
+  box-shadow: 0 0 12px var(--cyan);
+}
+
+.green-glow {
+  background: var(--green);
+  box-shadow: 0 0 12px var(--green);
+}
+
+/* ///////////////////////////////////////////////////////// */
+
+/* body {
   width: 250px;
   font-family: Arial, sans-serif;
   padding: 10px;
@@ -33,4 +272,4 @@ li {
 
 .error {
   color: red;
-}
+} */

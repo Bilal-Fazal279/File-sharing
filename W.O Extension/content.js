@@ -70,16 +70,46 @@ async function runAllChecks(doc) {
   results.length = 0;
   console.log("▶ Running all validation checks...");
 
+  const sysStatus = doc.getElementById("M0:46:1:1:1::7:11");
   const personal = doc.getElementById("M0:46:1:1:2:3B256:5:2::0:11");
   const firstOp = doc.getElementById("M0:46:1:1:2:3B256:10::4:12");
   const equip = doc.getElementById("M0:46:1:1:2:3B256:8::1:11");
 
+  //system status check for material issuance
+ if (!sysStatus) {
+    results.push(`${redCross} Sys. Status not found`);
+    return false;
+}
+
+const status = sysStatus?.value?.trim() || "";
+
+if (status.includes("MACM")) {
+    results.push(`${redCross} MR/PR created against this order — DO NOT close`);
+    return false;
+
+} else if (status.includes("NMAT")) {
+    results.push(`${greenCheck} No material created — safe to TECO`);
+    return true;
+
+} else if (status.includes("GMPS")) {
+    results.push(`${greenCheck} Material issued — safe to TECO`);
+    return true;
+
+} else {
+    results.push(`${redCross} Material status could not be determined`);
+    return false;
+}
+
+
+  // personal number Check
   results.push(!personal?.value?.trim() || personal.value === "0"
     ? `${redCross} Personal number missing`
     : `${greenTick} Personal number OK`);
-  results.push(!firstOp?.value?.trim() || firstOp.value === "0"
+  //first operation check
+    results.push(!firstOp?.value?.trim() || firstOp.value === "0"
     ? `${redCross} First operation missing`
     : `${greenTick} First operation OK`);
+    //equipment tag check
   results.push(!equip?.value?.trim() || equip.value === "0"
     ? `${redCross} Equipment tag missing`
     : `${greenTick} Equipment OK`);

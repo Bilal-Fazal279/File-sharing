@@ -1,38 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>Work Order Checker</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 10px; width: 300px; }
-    h2 { text-align: center; }
-    ul { list-style: none; padding-left: 0; }
-    li { margin: 5px 0; font-size: 14px; }
-    .success { color: green; }
-    .error { color: red; }
-    button { width: 100%; padding: 10px; margin-top: 10px; font-size: 14px; }
-    #spinner {
-      display: none;
-      margin: 10px auto;
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid #3498db;
-      border-radius: 50%;
-      width: 24px;
-      height: 24px;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg);}
-      100% { transform: rotate(360deg);}
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <h2>Work Order Checker</h2>
-  <div id="spinner"></div>
-  <ul id="results"></ul>
-  <button id="check" >Check Work Order</button>
+  <div class="hud-container">
+    <div class="header">
+      <div class="brand">
+        <span class="pulse-dot"></span> <h1>Work Order Verification</h1>      </div>
+      <div class="system-state">
+        <span class="active-tag">ACTIVE</span>
+      </div>
+    </div>
+
+
+
+    <div class="glass-card summary-card">
+      <div class="stat-row">
+        <span class="label">TASK COMPLETION</span>
+        <span class="value cyan-text">0.00%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill cyan-glow" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <div class="section-divider">VERIFICATION STACK</div>
+
+    <div id="results">
+      <div class="item-card">
+        <div class="icon-box cyan-border">
+          <div class="mini-icon" style="font-size: 18px; display: flex; align-items: center; justify-content: center;">
+        📭
+      </div>
+        </div>
+        <div class="item-info">
+          <span class="item-label cyan-text">NOTHING TO SHOW</span>
+          <span class="item-value">EMPTY</span>
+        </div>
+        <div class="status-icon yellow-text">...</div>
+      </div>
+
+    </div>
+
+    <button id="check" class="main-button">
+      CHECK WORK ORDER <span class="arrow">»</span>
+    </button>
+
+
+  </div>
 
   <script src="popup.js"></script>
 </body>
+
 </html>
+
+
+
+
+
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="hud-container">
+    <div class="header">
+      <div class="brand">
+        <span class="dot"></span> STITCH AI // HUD V3
+      </div>
+      <div class="status-tag">ACTIVE</div>
+    </div>
+
+    <h1>Work Verification</h1>
+
+    <div class="stats-section">
+      <div class="stat-row">
+        <span>TASK COMPLETION</span>
+        <span class="value cyan">82.00%</span>
+      </div>
+      <div class="progress-bar"><div class="fill cyan" style="width: 82%"></div></div>
+
+      <div class="stat-row">
+        <span>VERIFICATION ACCURACY</span>
+        <span class="value green">98.42%</span>
+      </div>
+      <div class="progress-bar"><div class="fill green" style="width: 98%"></div></div>
+    </div>
+
+    <div class="section-label">VERIFICATION STACK</div>
+    
+    <ul id="results">
+      <li class="loading-text">Awaiting Scan...</li>
+    </ul>
+
+    <div id="spinner"></div>
+
+    <button id="check">CHECK WORK ORDER <span>»</span></button>
+
+    <div class="footer">
+      LATENCY <br>
+      <span class="green">14ms - OPTIMAL</span>
+      <div class="decor-dots">...</div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html> -->
