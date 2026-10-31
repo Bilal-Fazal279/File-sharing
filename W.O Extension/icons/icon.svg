@@ -1,0 +1,11 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M64 10L110.765 37V91L64 118L17.2346 91V37L64 10Z" stroke="#00F3FF" stroke-width="6" stroke-linejoin="round"/>
+  
+  <circle cx="64" cy="64" r="20" fill="#00F3FF">
+    <animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite" />
+  </circle>
+  
+  <rect x="25" y="62" width="78" height="4" fill="#00F3FF" opacity="0.6">
+    <animateTransform attributeName="transform" type="translate" values="0,-20; 0,20; 0,-20" dur="3s" repeatCount="indefinite" />
+  </rect>
+</svg>
